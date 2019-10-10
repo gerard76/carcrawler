@@ -1,0 +1,26 @@
+<%=
+  scatter_chart @cars,
+    prefix: "€",
+    height: "600px",
+    min: 5001,
+    max: 55000,
+    library: {
+      xAxis: {
+        type: 'datetime',
+        dateTimeLabelFormats: {
+            day: '%e of %b'
+        }
+      },
+      tooltip: {
+        useHTML: true,
+        pointFormat: '<table>' +
+          '<tr><td>prijs: </td><td>€{point.y}</td></tr>' +
+          '<tr><td>bouwjaar: </td><td>{point.x:%Y-%m-%d}</td></tr>' +
+          # '<tr><td>km: </td><td>{series.scatter.data}</td></tr>' +
+          '</table>'
+      },
+    }
+ %>
+ 
+ <%- @cars.inspect%>
+ 
