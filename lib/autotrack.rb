@@ -21,9 +21,7 @@ class Autotrack < Crawler
       year        = item.at_xpath("a//span[@itemprop='productionDate']").text rescue nil
       car.year    = Date.parse("#{year}-01-01") rescue nil
       
-      if car.save
-        request_to :parse_car_page, url: car.url
-      end
+      request_to :parse_car_page, url: car.url if car.save
     end
     
     if response.at_xpath("//li[@class='pagination__next']/a").present?

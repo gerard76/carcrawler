@@ -18,9 +18,7 @@ class FinnNo < Crawler
       car.price = (data[2].text.gsub(/[^0-9]/,'').to_i / 10.0132423).round
       next if car.price == 0
       
-      if car.save
-        request_to :parse_car_page, url: car.url
-      end
+      request_to :parse_car_page, url: car.url if car.save
     end
   end
   

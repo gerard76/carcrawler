@@ -24,7 +24,6 @@ class Autotrader < Crawler
       car.year    = Date.parse(year) rescue nil
       
       car.save
-  
     end
     
     nextpage = response.at_xpath("//a[@class='page-nav-next']")

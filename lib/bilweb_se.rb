@@ -20,9 +20,7 @@ class BilwebSe < Crawler
       car.km   = data[0].text.to_i * 10
       car.year = Date.parse("01/" + data[1].text) rescue nil
       
-      if car.save
-        request_to :parse_car_page, url: car.url
-      end
+      request_to :parse_car_page, url: car.url if car.save
     end
   end
   
