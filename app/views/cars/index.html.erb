@@ -2,14 +2,14 @@
   scatter_chart @cars,
     prefix: "€",
     height: "600px",
-    min: 5001,
-    max: 55000,
+    min: @minprice,
+    max: @maxprice,
     library: {
       xAxis: {
         type: 'datetime',
         dateTimeLabelFormats: {
             day: '%e of %b'
-        }
+        },
       },
       tooltip: {
         useHTML: true,
