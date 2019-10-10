@@ -5,7 +5,7 @@ class Crawler < Kimurai::Base
     before_request: { delay: 3..6 }
   }
   
-  def self.crawl!
+  def self.crawl
     BilwebSe.crawl!
     FinnNo.crawl!
     Autoscout24.crawl!
