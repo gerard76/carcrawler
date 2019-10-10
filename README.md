@@ -24,3 +24,5 @@ Start your Rails server:
 ```rails s```
 
 http://localhost:3000 will serve up a nice chart
+
+![BMW i3 graph](/app/assets/images/example_graph.png)
