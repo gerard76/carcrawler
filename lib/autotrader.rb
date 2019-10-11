@@ -18,6 +18,7 @@ class Autotrader < Crawler
       car.version = item.at_xpath('div/a/h2').text.strip.sub(/^BMW i3/, '').strip
       
       car.price   = item.at_xpath("div/a//span[@class='css-18of4ng']").text.gsub(/[^0-9]/,'')
+      car.price  *= 1.21 if car.version =~ /ex.*btw/i
       car.km      = item.xpath("div//span[contains(text(), 'Km-stand')]/b").text.gsub(/[^0-9]/,'')
       
       year        = item.xpath("div//span[contains(text(), 'Bouwjaar')]/b").text

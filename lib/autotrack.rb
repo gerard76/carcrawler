@@ -16,6 +16,7 @@ class Autotrack < Crawler
       car.version = item.at_xpath("a//meta[@itemprop='description']")[:content]
       
       car.price   = item.at_xpath("a//data[contains(@class, 'result-item__price')]")[:value] rescue nil
+      car.price  *= 1.21 if car.version =~ /ex.*btw/i
       car.km      = item.at_xpath("a//meta[@itemprop='mileageFromOdometer']")[:content]
       
       year        = item.at_xpath("a//span[@itemprop='productionDate']").text rescue nil
