@@ -5,11 +5,24 @@ class Crawler < Kimurai::Base
     before_request: { delay: 3..6 }
   }
   
+  CRAWLERS = %w[BilwebSe FinnNo Autoscout24 Autotrack Autotrader BroommarkedNo CargurusDe]
+  
   def self.crawl
-    BilwebSe.crawl!
-    FinnNo.crawl!
-    Autoscout24.crawl!
-    Autotrack.crawl!
-    Autotrader.crawl!
+    CRAWLERS.each { |crawler| crawler.constantize.crawl! }
+  end
+  
+  def self.refresh
+    CRAWLERS.each do |crawler|
+      crawler.constantize.refresh!
+    end
+  end
+  
+  def self.cars
+    Car.where(crawler: self.to_s)
+  end
+  
+  def self.refresh!
+    cars.delete_all
+    crawl!
   end
 end

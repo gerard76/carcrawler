@@ -6,7 +6,7 @@ class Autotrack < Crawler
   def parse(response, url:, data: {})
     
     response.xpath("//ul[contains(@class, 'result-list')]/li/article").each do |item|
-      car = Car.new(country: 'NL')
+      car = Car.new(country: 'NL', crawler: self.class)
       
       car.url = item.at_xpath('a')[:href]
       
@@ -42,6 +42,12 @@ class Autotrack < Crawler
       end
       year = Date.parse(date) rescue nil
       car.update(year: year)
+    end
+  end
+  
+  def self.refresh
+    cars.each do |car|
+      car.delete unless HTTParty.head(car.url).code == 200
     end
   end
 end

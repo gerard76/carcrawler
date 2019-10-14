@@ -4,13 +4,13 @@ class BroommarkedNo < Crawler
   def parse(response, url:, data: {})
     json = JSON.parse(response)
     json['data'].each do |item|
-      car = Car.new(country: 'NO')
+      car = Car.new(crawler: self.class, country: 'NO')
       
       car.make    = "#{item['brand']} #{item['model']}"
       car.version = item['title']
       
       car.url   = "https://www.broommarked.no/view/#{item['aditemid']}"
-      car.year  = Date.parse("#{item['year']}-01-01")
+      car.year  = Date.parse("#{item['yearmodel']}-01-01")
       car.km    = item['km']
       car.price = (item['price'] / 10.0132423).round
       

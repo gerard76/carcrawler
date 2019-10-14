@@ -22,6 +22,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'kimurai'
 gem 'chartkick'
 gem 'rails-i18n'
+gem 'httparty'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

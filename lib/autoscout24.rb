@@ -7,9 +7,8 @@ class Autoscout24 < Crawler
   end
 
   def parse(response, url:, data: {})
-    
     response.xpath("//div[@class='cl-list-element cl-list-element-gap']").each do |item|
-      car = Car.new
+      car = Car.new(crawler: self.class)
       
       a = item.at_xpath("div//div/a[@data-item-name='detail-page-link']")
       car.url     = absolute_url(a[:href], base: url)

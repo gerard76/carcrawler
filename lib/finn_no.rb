@@ -4,7 +4,7 @@ class FinnNo < Crawler
   
   def parse(response, url:, data: {})
     response.xpath("//div[@class='ads__unit__content']").each do |item|
-      car = Car.new(country: 'NO', make: 'BMW i3')
+      car = Car.new(crawler: self.class, country: 'NO', make: 'BMW i3')
       
       a = item.at_xpath("h2/a[@class='ads__unit__link']") || next
       car.url     = absolute_url(a[:href], base: url)
@@ -28,5 +28,20 @@ class FinnNo < Crawler
       year = Date.parse(date) rescue nil
       car.update(year: year)
     end
+  end
+  
+  def self.refresh!
+    cars.each do |car|
+      print "Validating #{car.url}..."
+      if car.available?
+        puts "ok"
+      else
+        puts "deleting"
+        car.delete
+      end 
+      sleep(rand(1..2))
+    end
+    
+    crawl!
   end
 end

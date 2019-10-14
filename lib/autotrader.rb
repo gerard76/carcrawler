@@ -9,7 +9,7 @@ class Autotrader < Crawler
   def parse(response, url:, data: {})
     
     response.xpath("//ul[@class='css-t1vlyw']/li[@class='css-1thwd7b']").each do |item|
-      car = Car.new(country: 'NL', make: 'BMW i3')
+      car = Car.new(country: 'NL', crawler: self.class, make: 'BMW i3')
       
       parsed = URI::parse(absolute_url(item.at_xpath('div/a')[:href], base: url))
       parsed.fragment = parsed.query = nil

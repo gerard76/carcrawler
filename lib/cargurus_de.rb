@@ -8,7 +8,7 @@ class CargurusDe < Crawler
   def parse(response, url:, data: {})
     json = JSON.parse(response)
     json['listings'].each do |item|
-      car = Car.new(country: 'DE')
+      car = Car.new(crawler: self.class, country: 'DE')
       
       base_url = CargurusDe.instance_variable_get :@base_url
       car.url = "#{base_url}/viewDetailsFilterViewInventoryListing.action?#listing=#{item['id']}"

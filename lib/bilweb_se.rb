@@ -6,7 +6,7 @@ class BilwebSe < Crawler
   
   def parse(response, url:, data: {})
     response.xpath("//div[contains(@class,'Card-content')]").each do |item|
-      car = Car.new(country: 'SE', make: 'BMW i3')
+      car = Car.new(crawler: self.class, country: 'SE', make: 'BMW i3')
       
       a = item.at_xpath("h3/a[@class='go_to_detail']") || next
       car.url     = a[:href]
@@ -14,7 +14,6 @@ class BilwebSe < Crawler
       
       price = item.at_xpath("div/p[@class='Card-mainPrice']") || next
       car.price = (item.at_xpath("div/p[@class='Card-mainPrice']").text.gsub(/[^0-9]/,'').to_i / 10.805452).round
-      next if car.price < 5000
       
       data = item.xpath("dl[@class='Card-carData']/dd")
       car.km   = data[0].text.to_i * 10
@@ -30,5 +29,20 @@ class BilwebSe < Crawler
       year = Date.parse(date) rescue nil
       car.update(year: year)
     end
+  end
+  
+  def self.refresh!
+    cars.each do |car|
+      print "Validating #{car.url}..."
+      if car.available?
+        puts "ok"
+      else
+        puts "deleting"
+        car.delete
+      end 
+      sleep(rand(1..2))
+    end
+    
+    crawl!
   end
 end
