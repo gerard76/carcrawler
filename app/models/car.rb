@@ -5,6 +5,8 @@ class Car < ApplicationRecord
   validates :price,   presence: true, numericality: { greater_than: 5000 }
   validates :crawler, presence: true
   
+  scope :visible, -> { where(visible: true) }
+  
   def available?
     if defined? crawler.constantize.available?
       return crawler.constantize.available?(url)
