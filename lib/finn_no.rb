@@ -9,7 +9,7 @@ class FinnNo < Crawler
       a = item.at_xpath("h2/a[@class='ads__unit__link']") || next
       car.url     = absolute_url(a[:href], base: url)
       
-      car.version = a.text.strip.sub(/^BMW i3/, '').strip
+      car.version = a.text.strip.sub(/^#{car.make}/, '').strip
       
       data = item.xpath("p[@class='ads__unit__content__keys']/span")
       

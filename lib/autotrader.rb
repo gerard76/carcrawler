@@ -15,7 +15,7 @@ class Autotrader < Crawler
       parsed.fragment = parsed.query = nil
       car.url = parsed.to_s
       
-      car.version = item.at_xpath('div/a/h2').text.strip.sub(/^BMW i3/, '').strip
+      car.version = item.at_xpath('div/a/h2').text.strip.sub(/^#{car.make}/, '').strip
       
       car.price   = item.at_xpath("div/a//span[@class='css-18of4ng']").text.gsub(/[^0-9]/,'')
       car.price  *= 1.21 if car.version =~ /ex.*btw/i && !car.price.nil?

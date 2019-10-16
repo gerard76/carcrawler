@@ -13,7 +13,7 @@ class Autotrack < Crawler
       brand = item.at_xpath("a//meta[@itemprop='brand']")[:content]
       model = item.at_xpath("a//meta[@itemprop='model']")[:content]
       car.make    = "#{brand} #{model}"
-      car.version = item.at_xpath("a//meta[@itemprop='description']")[:content].sub(/^BMW i3/, '')
+      car.version = item.at_xpath("a//meta[@itemprop='description']")[:content].sub(/^#{car.make}/, '')
       
       car.price   = item.at_xpath("a//data[contains(@class, 'result-item__price')]").try(:[],:value)
       car.price  *= 1.21 if car.version =~ /ex.*btw/i && !car.price.nil?
