@@ -4,7 +4,7 @@ class FinnNo < Crawler
   
   def parse(response, url:, data: {})
     response.xpath("//div[@class='ads__unit__content']").each do |item|
-      car = Car.new(crawler: self.class, country: 'NO', make: 'BMW i3')
+      car = Car.new(crawler: self.class, country: 'NO', make: 'BMW i3', currency: 'NOK')
       
       a = item.at_xpath("h2/a[@class='ads__unit__link']") || next
       car.url     = absolute_url(a[:href], base: url)
@@ -15,8 +15,7 @@ class FinnNo < Crawler
       
       car.year  = Date.parse("01/" + data[0].text) rescue nil
       car.km    = data[1].text.gsub(/[^0-9]/,'')
-      car.price = (data[2].text.gsub(/[^0-9]/,'').to_i / 10.0132423).round
-      next if car.price == 0
+      car.price = data[2].text.gsub(/[^0-9]/,'')
       
       request_to :parse_car_page, url: car.url if car.save
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_15_174316) do
+ActiveRecord::Schema.define(version: 2019_10_16_072852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2019_10_15_174316) do
   create_table "cars", force: :cascade do |t|
     t.string "make"
     t.string "version"
-    t.integer "price"
+    t.integer "eur"
     t.integer "km"
     t.date "year"
     t.string "url"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 2019_10_15_174316) do
     t.datetime "updated_at", null: false
     t.string "crawler"
     t.boolean "visible", default: true
+    t.string "currency"
+    t.integer "price"
   end
 
 end

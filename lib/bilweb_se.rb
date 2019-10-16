@@ -6,14 +6,14 @@ class BilwebSe < Crawler
   
   def parse(response, url:, data: {})
     response.xpath("//div[contains(@class,'Card-content')]").each do |item|
-      car = Car.new(crawler: self.class, country: 'SE', make: 'BMW i3')
+      car = Car.new(crawler: self.class, country: 'SE', make: 'BMW i3', currency: 'SEK')
       
       a = item.at_xpath("h3/a[@class='go_to_detail']") || next
       car.url     = a[:href]
       car.version = a.text.strip.sub(/^BMW i3/, '').strip
       
       price = item.at_xpath("div/p[@class='Card-mainPrice']") || next
-      car.price = (item.at_xpath("div/p[@class='Card-mainPrice']").text.gsub(/[^0-9]/,'').to_i / 10.805452).round
+      car.price = item.at_xpath("div/p[@class='Card-mainPrice']").text.gsub(/[^0-9]/,'')
       
       data = item.xpath("dl[@class='Card-carData']/dd")
       car.km   = data[0].text.to_i * 10

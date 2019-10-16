@@ -17,7 +17,8 @@ class Autoscout24 < Crawler
       car.version = item.xpath("div//h2[contains(@class, 'cldt-summary-version')]").text
       
       car.price   =  item.at_xpath("div//span[@data-item-name='price']").text.split(",-").first.gsub(/[^0-9]/,'')
-      car.price  *= 1.21 if car.version =~ /ex.*btw/i
+      car.price  *= 1.21 if car.version =~ /ex.*btw/i && !car.price.nil?
+            
       car.km      = item.xpath("div//ul/li").first.text.gsub(/[^0-9]/,'')
       car.year    = Date.parse(item.xpath("div//ul/li")[1].text.strip) rescue nil
       
