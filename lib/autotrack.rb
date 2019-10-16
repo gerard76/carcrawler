@@ -6,7 +6,7 @@ class Autotrack < Crawler
   def parse(response, url:, data: {})
     
     response.xpath("//ul[contains(@class, 'result-list')]/li/article").each do |item|
-      car = Car.new(country: 'NL', crawler: self.class)
+      car = Car.new(crawler: self.class)
       
       car.url = item.at_xpath('a')[:href]
       

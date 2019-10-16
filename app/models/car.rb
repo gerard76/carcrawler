@@ -11,6 +11,10 @@ class Car < ApplicationRecord
   validates :eur,     presence: true, numericality: { greater_than: 5000 }
   validates :crawler, presence: true
   
+  # Defaults:
+  attribute :currency, :string, default: 'EUR'
+  attribute :country,  :string, default: 'NL'
+  attribute :make,     :string, default: 'BMW i3'
   
   def available?
     if defined? crawler.constantize.available?

@@ -6,7 +6,7 @@ class BilwebSe < Crawler
   
   def parse(response, url:, data: {})
     response.xpath("//div[contains(@class,'Card-content')]").each do |item|
-      car = Car.new(crawler: self.class, country: 'SE', make: 'BMW i3', currency: 'SEK')
+      car = Car.new(crawler: self.class, country: 'SE', currency: 'SEK')
       
       a = item.at_xpath("h3/a[@class='go_to_detail']") || next
       car.url     = a[:href]

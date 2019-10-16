@@ -4,7 +4,7 @@ class FinnNo < Crawler
   
   def parse(response, url:, data: {})
     response.xpath("//div[@class='ads__unit__content']").each do |item|
-      car = Car.new(crawler: self.class, country: 'NO', make: 'BMW i3', currency: 'NOK')
+      car = Car.new(crawler: self.class, country: 'NO', currency: 'NOK')
       
       a = item.at_xpath("h2/a[@class='ads__unit__link']") || next
       car.url     = absolute_url(a[:href], base: url)
