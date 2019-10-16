@@ -13,7 +13,6 @@ class Autoscout24 < Crawler
       a = item.at_xpath("div//div/a[@data-item-name='detail-page-link']")
       car.url     = absolute_url(a[:href], base: url)
       
-      car.make    = item.xpath("div//h2[contains(@class, 'cldt-summary-makemodel')]").text
       car.version = item.xpath("div//h2[contains(@class, 'cldt-summary-version')]").text
       
       car.price   =  item.at_xpath("div//span[@data-item-name='price']").text.split(",-").first.gsub(/[^0-9]/,'')
