@@ -27,7 +27,7 @@ class Autoscout24 < Crawler
     end
     
     if next_page = response.at_xpath("//link[@rel='next']")
-      request_to :parse, url: next_page[:href] if next_page
+      request_to :parse, url: next_page[:href]
     end
   end
 end
