@@ -8,7 +8,7 @@ class BilnorgeNo < Crawler
       car.url   = absolute_url(item.css("a").first[:href], base: url)
       car.price = item.css("strong").first.text.gsub(/[^0-9]/,'')
       
-      car.version = item.css("span[class=listevisningsheading]").text.sub(/^#{car.make}/, '').strip
+      car.version = item.css("span[class=listevisningsheading]").text.sub(/^#{car.make}/, '')
       
       year     = item.css("td[class=listevisningsinfo]").first.text
       car.year = Date.parse("#{year}-01-01") rescue nil

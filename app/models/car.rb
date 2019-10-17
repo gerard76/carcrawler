@@ -3,6 +3,7 @@ class Car < ApplicationRecord
   scope :visible, -> { where(visible: true) }
   
   before_validation :set_eur
+  before_validation :cleanup
   
   # Validations
   validates :url,     uniqueness: true
@@ -26,6 +27,10 @@ class Car < ApplicationRecord
   end
   
   private
+  
+  def cleanup
+    self.version = version.strip
+  end
   
   def set_eur
     return unless price

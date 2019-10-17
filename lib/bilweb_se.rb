@@ -10,7 +10,7 @@ class BilwebSe < Crawler
       
       a = item.at_xpath("h3/a[@class='go_to_detail']") || next
       car.url     = a[:href]
-      car.version = a.text.strip.sub(/^#{car.make}/, '').strip
+      car.version = a.text.strip.sub(/^#{car.make}/, '')
       
       price = item.at_xpath("div/p[@class='Card-mainPrice']") || next
       car.price = item.at_xpath("div/p[@class='Card-mainPrice']").text.gsub(/[^0-9]/,'')
