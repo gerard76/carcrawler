@@ -15,11 +15,10 @@ class Autotrader < Crawler
       parsed.fragment = parsed.query = nil
       car.url = parsed.to_s
       
-      car.version = item.at_xpath('div/a/h2').text.strip.sub(/^#{car.make}/, '')
+      car.version = item.at_xpath('div/a/h2').text
       
-      car.price   = item.at_xpath("div/a//span[@class='css-18of4ng']").text.gsub(/[^0-9]/,'')
-      car.price  *= 1.21 if car.version =~ /ex.*btw/i && !car.price.nil?
-      car.km      = item.xpath("div//span[contains(text(), 'Km-stand')]/b").text.gsub(/[^0-9]/,'')
+      car.price   = item.at_xpath("div/a//span[@class='css-18of4ng']").text
+      car.km      = item.xpath("div//span[contains(text(), 'Km-stand')]/b").text
       
       year        = item.xpath("div//span[contains(text(), 'Bouwjaar')]/b").text
       car.year    = Date.parse(year) rescue nil

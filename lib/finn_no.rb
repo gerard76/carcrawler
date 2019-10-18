@@ -9,13 +9,13 @@ class FinnNo < Crawler
       a = item.at_xpath("h2/a[@class='ads__unit__link']") || next
       car.url     = absolute_url(a[:href], base: url)
       
-      car.version = a.text.strip.sub(/^#{car.make}/, '')
+      car.version = a.text
       
       data = item.xpath("p[@class='ads__unit__content__keys']/span")
       
       car.year  = Date.parse("01/" + data[0].text) rescue nil
       car.km    = data[1].text.gsub(/[^0-9]/,'')
-      car.price = data[2].text.gsub(/[^0-9]/,'')
+      car.price = data[2].text
       
       request_to :parse_car_page, url: car.url if car.save
     end

@@ -2,9 +2,9 @@ class Car < ApplicationRecord
 
   scope :visible, -> { where(visible: true) }
   
-  before_validation :set_eur
   before_validation :cleanup
-  
+  before_validation :set_eur
+    
   # Validations
   validates :url,     uniqueness: true
   validates :version, uniqueness: { scope: [:km, :price]}
@@ -26,10 +26,23 @@ class Car < ApplicationRecord
     response.code == 200
   end
   
+  def price=(value)
+    self.write_attribute(:price, value.gsub(/[^0-9]/, ''))
+    
+    if version =~ /ex.*btw/i && !price.nil? && country == 'NL'
+      self.price  *= 1.21 
+    end
+  end
+  
+  def km=(value)
+    self.write_attribute(:km, value.gsub(/[^0-9]/, ''))
+    self.km *= 10 if country == 'SE'
+  end
+  
   private
   
   def cleanup
-    self.version = version.strip
+    self.version = version.strip.sub(/^#{make}/, '')
   end
   
   def set_eur

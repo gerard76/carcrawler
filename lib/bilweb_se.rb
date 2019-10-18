@@ -10,13 +10,13 @@ class BilwebSe < Crawler
       
       a = item.at_xpath("h3/a[@class='go_to_detail']") || next
       car.url     = a[:href]
-      car.version = a.text.strip.sub(/^#{car.make}/, '')
+      car.version = a.text
       
       price = item.at_xpath("div/p[@class='Card-mainPrice']") || next
-      car.price = item.at_xpath("div/p[@class='Card-mainPrice']").text.gsub(/[^0-9]/,'')
+      car.price = item.at_xpath("div/p[@class='Card-mainPrice']").text
       
       data = item.xpath("dl[@class='Card-carData']/dd")
-      car.km   = data[0].text.to_i * 10
+      car.km   = data[0].text
       car.year = Date.parse("01/" + data[1].text) rescue nil
       
       request_to :parse_car_page, url: car.url if car.save
