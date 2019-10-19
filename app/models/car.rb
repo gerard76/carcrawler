@@ -42,7 +42,7 @@ class Car < ApplicationRecord
   private
   
   def cleanup
-    self.version = version.strip.sub(/^#{make}/, '')
+    self.version = version.strip.sub(/^#{make}/, '').strip
   end
   
   def set_eur
