@@ -5,7 +5,17 @@ class Crawler < Kimurai::Base
     before_request: { delay: 3..6 }
   }
   
-  CRAWLERS = %w[BilnorgeNo BilwebSe FinnNo Autoscout24 Autotrack Autotrader BroommarkedNo CargurusDe]
+  CRAWLERS = %w[
+    BilnorgeNo
+    BilwebSe
+    FinnNo
+    Autoscout24
+    Autotrack
+    Autotrader
+    BroommarkedNo
+    CargurusDe
+    GebrauchtwagenDe
+  ]
   
   def self.crawl
     CRAWLERS.each { |crawler| crawler.constantize.crawl! }
