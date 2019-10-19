@@ -3,7 +3,8 @@ class CarsController < ApplicationController
     @cars = []
     @maxprice = 0
     @minprice = Car.maximum(:eur)
-    Car.visible.order(:country).group_by(&:country).each do |country, cars|
+    @q = Car.ransack(params[:q])
+    @q.result.for_graph.each do |country, cars|
       data = cars.map do |car|
         @minprice = car.eur if car.eur < @minprice
         @maxprice = car.eur if car.eur > @maxprice
@@ -13,6 +14,6 @@ class CarsController < ApplicationController
     end
     
     @minprice = @minprice.floor(-4)
-    @maxprice = @maxprice.floor(-4)
+    @maxprice = @maxprice.ceil(-4)
   end
 end

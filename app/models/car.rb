@@ -1,6 +1,6 @@
 class Car < ApplicationRecord
-
-  scope :visible, -> { where(visible: true) }
+  scope :visible,   -> { where(visible: true) }
+  scope :for_graph, -> { visible.order(:country).group_by(&:country) }
   
   before_validation :cleanup
   before_validation :set_eur
@@ -17,6 +17,14 @@ class Car < ApplicationRecord
   attribute :country,  :string, default: 'NL'
   attribute :make,     :string, default: 'BMW i3'
   
+  # Searching in json with Ransack
+  Car.pluck(Arel.sql("distinct json_object_keys(data)")).each do |key|
+    ransacker key do |parent|
+      Arel::Nodes::InfixOperation.new('->>', parent.table[:data], Arel::Nodes.build_quoted(key))
+    end
+  end
+  
+  # Instance methods:
   def available?
     if defined? crawler.constantize.available?
       return crawler.constantize.available?(url)
