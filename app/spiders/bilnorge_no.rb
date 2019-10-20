@@ -1,8 +1,9 @@
 class BilnorgeNo < Crawler
   @name = "bilnorge.no"
-  @start_urls = ["http://bilnorge.no/bruktbil.php?merke=1400&xorderby=prisa&modellid=140023"]
+  @start_urls = ["http://bilnorge.no/bruktbil.php?merke=1400&xorderby=publ&modellid=140023"]
   
   def parse(response, url:, data: {})
+    stop_crawling = false
     response.xpath("//table[contains(@class, 'bilvisningstabell')]").each do |item|
       car = Car.new(crawler: self.class, country: 'NO', currency: 'NOK')
       
@@ -15,11 +16,16 @@ class BilnorgeNo < Crawler
       car.year = Date.parse("#{year}-01-01") rescue nil
       car.km   = item.css("td[class=listevisningsinfo]")[2].text
       
-      request_to :parse_car_page, url: car.url if car.save
+      if car.save
+        request_to :parse_car_page, url: car.url
+      else
+        stop_crawling = Car.where(url: car.url).present?
+        break if stop_crawling
+      end
     end
     
     if next_page = response.css("a[class=GreenLink]").detect { |a| a.text =~ /Neste/ }
-      request_to :parse, url: absolute_url(next_page[:href], base: url)
+      request_to :parse, url: absolute_url(next_page[:href], base: url) unless stop_crawling
     end
   end
   

@@ -6,26 +6,28 @@ class GebrauchtwagenDe < Crawler
   ]
   
   def parse(response, url:, data: {})
+    stop_crawling = false
     response.xpath("//div[contains(@class, 'result-slot')]").each do |item|
       car = Car.new(crawler: self.class, country: 'DE')
-
+      
       a       = item.at_xpath("a[contains(@class,'click-out-')]")
       car.url = absolute_url(a[:href].split("?").first, base: url)
-
+      
       car.version = item.at_xpath("a/div/h3").text
-
+      
       car.price = item.at_xpath("a//span[@class='ad-price']").text
       year      = item.at_xpath("a//span[@class='ad-registration-date']").text.sub(/^EZ /, '')
       car.year  = Date.parse(year) rescue nil
-
+      
       car.km    = item.at_xpath("a//span[@class='ad-mileage']").text
-
-      car.save
+      
+      stop_crawling = !car.save && Car.where(url: car.url).present?
+      break if stop_crawling
     end
     
     if nextpage = response.at_xpath("//a[text()='weiter ❯']")
       href = CGI.unescape(nextpage[:href])
-      request_to :parse, url: absolute_url(href, base: url)
+      request_to :parse, url: absolute_url(href, base: url) unless stop_crawling
     end
     
   end

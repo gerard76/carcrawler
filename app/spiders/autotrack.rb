@@ -5,7 +5,6 @@ class Autotrack < Crawler
   ]
 
   def parse(response, url:, data: {})
-    
     response.xpath("//ul[contains(@class, 'result-list')]/li/article").each do |item|
       car = Car.new(crawler: self.class)
       

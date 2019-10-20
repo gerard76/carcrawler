@@ -1,7 +1,8 @@
 class FinnNo < Crawler
   @name = "finn.no"
-  base = "https://www.finn.no/car/used/search.html?rows=1000"
-  @start_urls = ["#{base}&engine_fuel=0%2F4&make=0.749&model=1.749.2000264&model=1.749.2000309&sales_form=1&sort=2"]
+  @start_urls = [
+    "https://www.finn.no/car/used/search.html?rows=1000&make=0.749&model=1.749.2000264&sales_form=1&sort=0"
+  ]
   
   def parse(response, url:, data: {})
     response.xpath("//div[@class='ads__unit__content']").each do |item|
