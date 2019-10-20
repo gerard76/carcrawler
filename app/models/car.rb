@@ -39,19 +39,25 @@ class Car < ApplicationRecord
     "#{make} #{model}"
   end
   
+  def price=(value)
+    price = value.gsub(/[^0-9]/, '')
+   
+    if version =~ /ex.*btw/i && country == 'NL'
+      price  *= 1.21 
+    end
+    self.write_attribute(:price, price)
+  end
+  
+  def km=(value)
+    km = value.gsub(/[^0-9]/, '')
+    km *= 10 if country == 'SE'
+    self.write_attribute(:km, km)
+  end
+  
   private
   
   def cleanup
     self.version = version.strip.sub(/^#{type}/, '').strip
-    
-    self.km = km.to_s.gsub(/[^0-9]/, '')
-    self.km *= 10 if country == 'SE'
-    
-    self.price = price.to_s.gsub(/[^0-9]/, '')
-    
-    if version =~ /ex.*btw/i && !price.nil? && country == 'NL'
-      self.price  *= 1.21 
-    end
   end
   
   def set_eur
