@@ -5,25 +5,13 @@ class Crawler < Kimurai::Base
     before_request: { delay: 3..6 }
   }
   
-  CRAWLERS = %w[
-    BilnorgeNo
-    BilwebSe
-    FinnNo
-    Autoscout24
-    Autotrack
-    Autotrader
-    BroommarkedNo
-    CargurusDe
-    GebrauchtwagenDe
-  ]
-  
   def self.crawl
-    CRAWLERS.each { |crawler| crawler.constantize.crawl! }
+    Kimurai.list.values.each { |crawler| crawler.crawl! }
   end
   
   def self.refresh
-    CRAWLERS.each do |crawler|
-      crawler.constantize.refresh!
+    Kimurai.list.values.each do |crawler|
+      crawler.refresh!
     end
   end
   

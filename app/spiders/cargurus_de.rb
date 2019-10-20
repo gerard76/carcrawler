@@ -1,5 +1,5 @@
 class CargurusDe < Crawler
-  # thanks to https://github.com/FadiniGIT/CarNotifierTweeter for the entry point
+  @name = "cargurus.de"
   @base_url = "https://www.cargurus.de/Cars/inventorylisting"
   @start_urls = [
     "#{@base_url}/ajaxFetchSubsetInventoryListing.action?entitySelectingHelper.selectedEntity=d2878"

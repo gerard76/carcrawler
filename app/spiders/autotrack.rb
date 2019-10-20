@@ -1,5 +1,6 @@
 
 class Autotrack < Crawler
+  @name = "autotrack.nl"
   @start_urls = [ "https://www.autotrack.nl/tweedehands?merkIds=1a67a3d8-178b-43ee-9071-9ae7f19b316a&modelIds.1a67a3d8-178b-43ee-9071-9ae7f19b316a=e2df3c6d-6dc9-48fb-bcbe-f66a9917c471&at-switch=on&policy=accepted-20190101&&paginagrootte=90&paginanummer=1"
   ]
 

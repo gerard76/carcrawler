@@ -59,4 +59,9 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  
+  # make sure Kimurai.list works in development
+  Rails.application.reloader.to_prepare do
+    Dir["#{Rails.root}/app/spiders/*.rb"].each {|file| require_dependency file}
+  end
 end

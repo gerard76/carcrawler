@@ -1,9 +1,9 @@
-
 class Autoscout24 < Crawler
+  @name = "autoscout24.nl"
   base = "https://www.autoscout24.nl"
   countries = %w[NL A B D E F I L]
   @start_urls = countries.map do |c|
-    "#{base}/lst/bmw/i3?sort=price&desc=0&fuel=E&ustate=N%2CU&size=20&page=1&cy=#{c}&atype=C&ac=0&"
+    "#{base}/lst/bmw/i3?sort=age&desc=0&fuel=E&ustate=N%2CU&size=20&page=1&cy=#{c}&atype=C&ac=0&"
   end
 
   def parse(response, url:, data: {})
@@ -12,6 +12,13 @@ class Autoscout24 < Crawler
       
       a = item.at_xpath("div//div/a[@data-item-name='detail-page-link']")
       car.url     = absolute_url(a[:href], base: url)
+      if Car.where("'see' != 'this?'").where(url: car.url).first.present?
+        puts "NOT UINQUE!!"
+      else
+        puts "UNIQUE!!!"
+      end
+      
+      
       
       car.version = item.xpath("div//h2[contains(@class, 'cldt-summary-version')]").text
       

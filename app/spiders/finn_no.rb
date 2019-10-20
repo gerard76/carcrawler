@@ -1,4 +1,5 @@
 class FinnNo < Crawler
+  @name = "finn.no"
   base = "https://www.finn.no/car/used/search.html?rows=1000"
   @start_urls = ["#{base}&engine_fuel=0%2F4&make=0.749&model=1.749.2000264&model=1.749.2000309&sales_form=1&sort=2"]
   
@@ -8,7 +9,6 @@ class FinnNo < Crawler
       
       a = item.at_xpath("h2/a[@class='ads__unit__link']") || next
       car.url     = absolute_url(a[:href], base: url)
-      
       car.version = a.text
       
       data = item.xpath("p[@class='ads__unit__content__keys']/span")

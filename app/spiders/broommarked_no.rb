@@ -1,4 +1,5 @@
 class BroommarkedNo < Crawler
+  @name = "broommarked.no"
   @start_urls = ["https://www.broommarked.no/s/search/?type=hmaAuto&sort=price-asc&page=0&b=BMW_i3"]
   
   def parse(response, url:, data: {})

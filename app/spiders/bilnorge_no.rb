@@ -1,4 +1,5 @@
 class BilnorgeNo < Crawler
+  @name = "bilnorge.no"
   @start_urls = ["http://bilnorge.no/bruktbil.php?merke=1400&xorderby=prisa&modellid=140023"]
   
   def parse(response, url:, data: {})

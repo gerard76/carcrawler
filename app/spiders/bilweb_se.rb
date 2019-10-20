@@ -1,4 +1,5 @@
 class BilwebSe < Crawler
+  @name = "bilweb.se"
   @start_urls = [
     "https://bilweb.se/sok/bmw/i3?type=1&limit=300",
     "https://bilweb.se/sok/bmw/i3?type=1&limit=300&offset=100"

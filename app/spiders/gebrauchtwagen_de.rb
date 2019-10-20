@@ -1,4 +1,5 @@
 class GebrauchtwagenDe < Crawler
+  @name = "12gebrauchtwagen.de"
   # searches: mobile.de, hey.car, instamotion, pkw.de, verivox.de
   @start_urls = [
 "https://www.12gebrauchtwagen.de/suchen?s[sort]=0&s[mk]=11&s[md]=1017&s[pr_min]=5000&s[zip]=34127&s[rad]=300&s[providers][]=16&s[providers][]=17&s[providers][]=2&s[providers][]=6&s[providers][]=13"

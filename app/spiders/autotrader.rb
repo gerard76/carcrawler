@@ -1,5 +1,6 @@
 
 class Autotrader < Crawler
+  @name = "autotrader.nl"
   price_steps = (10_000..100_000).step(10_000).to_a
   @start_urls = price_steps.map do |priceto|
     pricefrom = priceto - 10_000
