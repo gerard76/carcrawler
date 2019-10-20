@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_19_052322) do
+ActiveRecord::Schema.define(version: 2019_10_20_143247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2019_10_19_052322) do
     t.string "currency"
     t.integer "price"
     t.json "data", default: {}
+    t.string "model"
   end
 
 end

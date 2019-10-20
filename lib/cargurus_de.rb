@@ -13,7 +13,6 @@ class CargurusDe < Crawler
       base_url = CargurusDe.instance_variable_get :@base_url
       car.url = "#{base_url}/viewDetailsFilterViewInventoryListing.action?#listing=#{item['id']}"
       
-      car.make    = "#{item['makeName']} #{item['modelName']}"
       car.version = item['EXT_MODEL']
       
       car.year  = Date.parse(item['REGISTRATION_DATE'])

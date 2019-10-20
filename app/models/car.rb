@@ -15,7 +15,8 @@ class Car < ApplicationRecord
   # Defaults:
   attribute :currency, :string, default: 'EUR'
   attribute :country,  :string, default: 'NL'
-  attribute :make,     :string, default: 'BMW i3'
+  attribute :make,     :string, default: 'BMW'
+  attribute :model,    :string, default: 'i3'
   
   # Searching in json with Ransack
   Car.pluck(Arel.sql("distinct json_object_keys(data)")).each do |key|
@@ -34,23 +35,23 @@ class Car < ApplicationRecord
     response.code == 200
   end
   
-  def price=(value)
-    self.write_attribute(:price, value.gsub(/[^0-9]/, ''))
-    
-    if version =~ /ex.*btw/i && !price.nil? && country == 'NL'
-      self.price  *= 1.21 
-    end
-  end
-  
-  def km=(value)
-    self.write_attribute(:km, value.gsub(/[^0-9]/, ''))
-    self.km *= 10 if country == 'SE'
+  def type
+    "#{make} #{model}"
   end
   
   private
   
   def cleanup
-    self.version = version.strip.sub(/^#{make}/, '').strip
+    self.version = version.strip.sub(/^#{type}/, '').strip
+    
+    self.km = km.to_s.gsub(/[^0-9]/, '')
+    self.km *= 10 if country == 'SE'
+    
+    self.price = price.to_s.gsub(/[^0-9]/, '')
+    
+    if version =~ /ex.*btw/i && !price.nil? && country == 'NL'
+      self.price  *= 1.21 
+    end
   end
   
   def set_eur

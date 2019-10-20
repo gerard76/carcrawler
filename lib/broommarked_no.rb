@@ -6,7 +6,6 @@ class BroommarkedNo < Crawler
     json['data'].each do |item|
       car = Car.new(crawler: self.class, country: 'NO', currency: 'NOK')
       
-      car.make    = "#{item['brand']} #{item['model']}"
       car.version = item['title']
       
       car.url   = "https://www.broommarked.no/view/#{item['aditemid']}"

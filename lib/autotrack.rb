@@ -1,7 +1,7 @@
 
 class Autotrack < Crawler
   @start_urls = [ "https://www.autotrack.nl/tweedehands?merkIds=1a67a3d8-178b-43ee-9071-9ae7f19b316a&modelIds.1a67a3d8-178b-43ee-9071-9ae7f19b316a=e2df3c6d-6dc9-48fb-bcbe-f66a9917c471&at-switch=on&policy=accepted-20190101&&paginagrootte=90&paginanummer=1"
-   ]
+  ]
 
   def parse(response, url:, data: {})
     
@@ -10,14 +10,11 @@ class Autotrack < Crawler
       
       car.url = item.at_xpath('a')[:href]
       
-      brand = item.at_xpath("a//meta[@itemprop='brand']")[:content]
-      model = item.at_xpath("a//meta[@itemprop='model']")[:content]
-      car.make    = "#{brand} #{model}"
       car.version = item.at_xpath("a//meta[@itemprop='description']")[:content]
       
       car.price   = item.at_xpath("a//data[contains(@class, 'result-item__price')]").try(:[],:value)
       
-      car.km      = item.at_xpath("a//meta[@itemprop='mileageFromOdometer']")[:content]
+      car.km      = item.at_xpath("a//meta[@itemprop='mileageFromOdometer']").try(:[],:content)
       
       year        = item.at_xpath("a//span[@itemprop='productionDate']").text rescue nil
       car.year    = Date.parse("#{year}-01-01") rescue nil
