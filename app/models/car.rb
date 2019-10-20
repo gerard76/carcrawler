@@ -6,11 +6,11 @@ class Car < ApplicationRecord
   before_validation :set_eur
     
   # Validations
+  validates :eur,     presence: true, numericality: { greater_than: 5000 }
+  validates :year,    presence: true
+  validates :crawler, presence: true
   validates :url,     uniqueness: true
   validates :version, uniqueness: { scope: [:km, :price]}
-  validates :year,    presence: true
-  validates :eur,     presence: true, numericality: { greater_than: 5000 }
-  validates :crawler, presence: true
   
   # Defaults:
   attribute :currency, :string, default: 'EUR'
