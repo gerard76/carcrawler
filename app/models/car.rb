@@ -40,7 +40,7 @@ class Car < ApplicationRecord
   end
   
   def price=(value)
-    price = value.gsub(/[^0-9]/, '')
+    price = value.to_s.gsub(/[^0-9]/, '')
    
     if version =~ /ex.*btw/i && country == 'NL'
       price  *= 1.21 
@@ -49,7 +49,7 @@ class Car < ApplicationRecord
   end
   
   def km=(value)
-    km = value.gsub(/[^0-9]/, '')
+    km = value.to_s.gsub(/[^0-9]/, '').to_i
     km *= 10 if country == 'SE'
     self.write_attribute(:km, km)
   end
