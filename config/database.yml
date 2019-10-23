@@ -24,3 +24,7 @@ default: &default
 development:
   <<: *default
   database: carcrawl
+
+test:
+  <<: *default
+  database: carcrawl_test

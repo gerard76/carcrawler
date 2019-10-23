@@ -82,9 +82,15 @@ GEM
     concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
     crass (1.0.4)
+    diff-lcs (1.3)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.9.0)
+    factory_bot (5.1.1)
+      activesupport (>= 4.2.0)
+    factory_bot_rails (5.1.1)
+      factory_bot (~> 5.1.0)
+      railties (>= 4.2.0)
     ffi (1.11.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -210,6 +216,23 @@ GEM
       ffi (~> 1.0)
     rbcat (0.2.1)
     regexp_parser (1.6.0)
+    rspec-core (3.9.0)
+      rspec-support (~> 3.9.0)
+    rspec-expectations (3.9.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.9.0)
+    rspec-mocks (3.9.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.9.0)
+    rspec-rails (3.9.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 3.9.0)
+      rspec-expectations (~> 3.9.0)
+      rspec-mocks (~> 3.9.0)
+      rspec-support (~> 3.9.0)
+    rspec-support (3.9.0)
     ruby_dep (1.5.0)
     rubyzip (1.3.0)
     sass (3.7.4)
@@ -272,6 +295,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   chartkick
+  factory_bot_rails
   httparty
   jbuilder (~> 2.7)
   kimurai
@@ -282,6 +306,7 @@ DEPENDENCIES
   rails (~> 6.0.0)
   rails-i18n
   ransack
+  rspec-rails
   sass-rails (~> 5)
   selenium-webdriver
   tzinfo-data
