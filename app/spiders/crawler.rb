@@ -5,6 +5,17 @@ class Crawler < Kimurai::Base
     before_request: { delay: 3..6 }
   }
   
+  @make  = 'BMW'
+  @model = 'i3'
+  
+  def self.make
+    @make
+  end
+  
+  def self.model
+    @model
+  end
+  
   def self.crawl
     Kimurai.list.values.each { |crawler| crawler.crawl! }
   end

@@ -1,6 +1,6 @@
 class BroommarkedNo < Crawler
   @name = "broommarked.no"
-  @start_urls = ["https://www.broommarked.no/s/search/?type=hmaAuto&sort=published&page=0&b=BMW_i3"]
+  @start_urls = ["https://www.broommarked.no/s/search/?type=hmaAuto&sort=published&page=0&b=#{Crawler.make}_#{Crawler.model}"]
   
   def parse(response, url:, data: {})
     json = JSON.parse(response)

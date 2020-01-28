@@ -2,7 +2,7 @@ class Autoscout24 < Crawler
   @name = "autoscout24.nl"
   countries = %w[NL A B D E F I L]
   @start_urls = countries.map do |c|
-    "https://www.autoscout24.nl/lst/bmw/i3?sort=age&desc=1&ustate=N%2CU&size=20&page=1&cy=#{c}&atype=C&ac=0"
+     "https://www.autoscout24.nl/lst/#{Crawler.make}/#{Crawler.model}?sort=age&desc=1&ustate=N%2CU&size=20&page=1&cy=#{c}&atype=C&ac=0"
   end
 
   def parse(response, url:, data: {})

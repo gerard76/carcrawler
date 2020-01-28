@@ -4,7 +4,7 @@ class Autotrader < Crawler
   price_steps = (10_000..100_000).step(10_000).to_a
   @start_urls = price_steps.map do |priceto|
     pricefrom = priceto - 10_000
-    "https://www.autotrader.nl/auto/bmw/i3/?sort=age&desc=1&priceto=#{priceto}&pricefrom=#{pricefrom}"
+    "https://www.autotrader.nl/auto/#{Crawler.make.downcase}/#{Crawler.model.downcase}/?sort=age&desc=1&priceto=#{priceto}&pricefrom=#{pricefrom}"
   end
  
   def parse(response, url:, data: {})
