@@ -17,7 +17,7 @@ class CargurusDe < Crawler
       
       car.year  = Date.parse(item['REGISTRATION_DATE'])
       car.km    = item['mileage']
-      car.price = item['price']
+      car.price = item['price'].to_s.split(".").first
       
       car.save
     end

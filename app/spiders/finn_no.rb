@@ -14,9 +14,11 @@ class FinnNo < Crawler
       
       data = item.xpath("p[@class='ads__unit__content__keys']/span")
       
-      car.year  = Date.parse("01/" + data[0].text) rescue nil
-      car.km    = data[1].text.gsub(/[^0-9]/,'')
-      car.price = data[2].text
+      if data
+        car.year  = Date.parse("01/" + data[0].text) rescue nil
+        car.km    = data[1]&& data[1].text.gsub(/[^0-9]/,'')
+        car.price = data[2] && data[2].text
+      end
       
       request_to :parse_car_page, url: car.url if car.save
     end

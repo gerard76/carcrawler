@@ -40,7 +40,8 @@ class Car < ApplicationRecord
   end
   
   def price=(value)
-    version += " ex btw" if value =~ /ex.*btw/i
+    version ||= ""
+    version += " ex btw" if value =~ /ex.*(btw|vat)/i
     price = value.to_s.gsub(/[^0-9]/, '').to_i
    
     self.write_attribute(:price, price)
@@ -55,7 +56,7 @@ class Car < ApplicationRecord
   private
   
   def cleanup
-    self.version = version.strip.sub(/^#{type}/, '').strip
+    self.version = version.strip.sub(/^#{type}/, '').strip unless version.nil?
   end
   
   def set_eur
@@ -69,7 +70,7 @@ class Car < ApplicationRecord
     when 'EUR'
       self.eur = price
       
-      if country == 'NL' && (version =~ /ex.*btw/i)
+      if country == 'NL' && (version =~ /ex.*(btw|vat)/i)
         self.eur = price * 1.21 
       end
     end
