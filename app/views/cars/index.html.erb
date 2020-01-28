@@ -1,20 +1,4 @@
-<%= search_form_for @q do |f| %>
-
-  <%= f.label :eur_max %>
-  <%= f.search_field :eur_lteq %>
-  
-  <%= f.label :km_max %>
-  <%= f.search_field :km_lteq %>
-  
-  <%= f.label :ah_eq %>
-  <%= f.select :ah_eq, [60,94,120], include_blank: true %>
-  
-  <%= f.label :rex %>
-  <%= f.select :rex_eq, [true], include_blank: true %>
-  
-  <%= f.submit %>
-
-<% end %>
+<%= render 'search_form' %>
 <%=
   scatter_chart @cars,
     prefix: "€",
