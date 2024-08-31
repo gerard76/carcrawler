@@ -1,3 +1,8 @@
+# Depricated and outdated
+Old, unloved and depricated.
+
+Kimurai is no longer maintained. The car sites all updated their HTML so the scrapers no longer work. I'll create a new project to look for my next car
+
 # README
 
 Carcrawler is a friendly webscraper I wrote to find the car I want for the best price.
